@@ -6,19 +6,25 @@ import java.util.GregorianCalendar;
 
 public class MyDate01 {
 
-    PersianCalendar pc;
-    GregorianCalendar gc;
-    //test
-    // test2
-    // test3
+    private PersianCalendar pc;
+    private GregorianCalendar gc;
 
-    public static void convertSHtoMIL() {
-
-        PersianCalendar pc = new PersianCalendar();
+    public void setPc(PersianCalendar pc) {
         pc.set(1400, PersianCalendarConstants.ORDIBEHESHT,21);
+        this.pc = pc;
+    }
+
+    public PersianCalendar getPc() {
+        return pc;
+    }
+
+    public void convertSHtoMIL() {
+
+//        PersianCalendar pc = new PersianCalendar();
+//        pc.set(1400, PersianCalendarConstants.ORDIBEHESHT,21);
 
         GregorianCalendar gc = new GregorianCalendar();
-        gc.setTime(pc.getTime());
+        gc.setTime(getPc().getTime());
 
 //        System.out.printf("Julian Date: %s\n",gc.getTime().toString());
         System.out.printf("Julian Date: %s\n",new MyDate01().setFormat(gc));
@@ -28,5 +34,9 @@ public class MyDate01 {
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
         fmt.setCalendar(calendar);
         return fmt.format(calendar.getTime());
+    }
+
+    private int findFriday() {
+
     }
 }
