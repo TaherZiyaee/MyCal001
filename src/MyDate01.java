@@ -10,7 +10,6 @@ public class MyDate01 {
     private GregorianCalendar gc;
 
     public void setPc(PersianCalendar pc) {
-        pc.set(1400, PersianCalendarConstants.ORDIBEHESHT,21);
         this.pc = pc;
     }
 
@@ -18,13 +17,23 @@ public class MyDate01 {
         return pc;
     }
 
+    public GregorianCalendar getGc() {
+        return gc;
+    }
+
+    public void setGc(GregorianCalendar gc) {
+        this.gc = gc;
+    }
+
     public void convertSHtoMIL() {
 
-//        PersianCalendar pc = new PersianCalendar();
-//        pc.set(1400, PersianCalendarConstants.ORDIBEHESHT,21);
+        setPc(new PersianCalendar(1400, PersianCalendarConstants.ORDIBEHESHT,21));
+
 
         GregorianCalendar gc = new GregorianCalendar();
         gc.setTime(getPc().getTime());
+        setGc(gc);
+
 
 //        System.out.printf("Julian Date: %s\n",gc.getTime().toString());
         System.out.printf("Julian Date: %s\n",new MyDate01().setFormat(gc));
@@ -36,7 +45,11 @@ public class MyDate01 {
         return fmt.format(calendar.getTime());
     }
 
-    private int findFriday() {
+    private void defineRange(GregorianCalendar start, GregorianCalendar end) {
 
+    }
+
+    private int findFriday() {
+        return 0;
     }
 }
