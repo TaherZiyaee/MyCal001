@@ -9,33 +9,36 @@ public class MyDate01 {
     private PersianCalendar pc;
     private GregorianCalendar gc;
 
-    public void setPc(PersianCalendar pc) {
+    private void setPc(PersianCalendar pc) {
         this.pc = pc;
     }
 
-    public PersianCalendar getPc() {
+    private PersianCalendar getPc() {
         return pc;
     }
 
-    public GregorianCalendar getGc() {
+    private GregorianCalendar getGc() {
         return gc;
     }
 
-    public void setGc(GregorianCalendar gc) {
+    private void setGc(GregorianCalendar gc) {
         this.gc = gc;
+    }
+
+    private void definePersianRange(PersianCalendar pc1,PersianCalendar pc2) {
+
+        pc1.set(1400,PersianCalendarConstants.ORDIBEHESHT,21);
+
     }
 
     public void convertSHtoMIL() {
 
         setPc(new PersianCalendar(1400, PersianCalendarConstants.ORDIBEHESHT,21));
 
-
         GregorianCalendar gc = new GregorianCalendar();
         gc.setTime(getPc().getTime());
         setGc(gc);
 
-
-//        System.out.printf("Julian Date: %s\n",gc.getTime().toString());
         System.out.printf("Julian Date: %s\n",new MyDate01().setFormat(gc));
     }
 
