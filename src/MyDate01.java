@@ -12,7 +12,18 @@ public class MyDate01 {
 
     private void definePersianRange() {
         pc1 = new PersianCalendar(1400,PersianCalendarConstants.ORDIBEHESHT,01);
-        pc2 = new PersianCalendar(1400,PersianCalendarConstants.ORDIBEHESHT,31);
+        pc2 = new PersianCalendar(1400,PersianCalendarConstants.ORDIBEHESHT,22);
+    }
+
+    public void printPersianDates() {
+        System.out.printf("Persian Date: %s\n",new MyDate01().setPersianFormat(pc1));
+    }
+
+    private String setPersianFormat(PersianCalendar calendar) {
+        calendar = new PersianCalendar();
+        com.ibm.icu.text.SimpleDateFormat fmt = new com.ibm.icu.text.SimpleDateFormat("yyyy/MM/dd");
+        fmt.setCalendar(calendar);
+        return fmt.format(calendar.getTime());
     }
 
     public void convertSHtoMIL() {
@@ -52,5 +63,43 @@ public class MyDate01 {
         return numberOfFriday;
     }
 
-    public int findFridayThursdayW
+    public int findThursday() {
+        Calendar start = GregorianCalendar.getInstance();
+        start.setTime(pc1.getTime());
+        Calendar end = GregorianCalendar.getInstance();
+        end.setTime(pc2.getTime());
+
+        int numberOfThursday = 0;
+        int thursday = Calendar.THURSDAY;
+
+        while (!start.after(end)) {
+            if (start.get(Calendar.DAY_OF_WEEK) == thursday) {
+                numberOfThursday++;
+                System.out.printf("Thursday #%d: %s\n",numberOfThursday,start.get(Calendar.DATE));
+                start.add(Calendar.DATE,7);
+            } else
+                start.add(Calendar.DATE,1);
+        }
+        return numberOfThursday;
+    }
+
+    public int findWednesday() {
+        Calendar start = GregorianCalendar.getInstance();
+        start.setTime(pc1.getTime());
+        Calendar end = GregorianCalendar.getInstance();
+        end.setTime(pc2.getTime());
+
+        int numberOfWednesday = 0;
+        int wednesday = Calendar.WEDNESDAY;
+
+        while (!start.after(end)) {
+            if (start.get(Calendar.DAY_OF_WEEK) == wednesday) {
+                numberOfWednesday++;
+                System.out.printf("Wednesday #%d: %s\n",numberOfWednesday,start.get(Calendar.DATE));
+                start.add(Calendar.DATE,7);
+            } else
+                start.add(Calendar.DATE,1);
+        }
+        return numberOfWednesday;
+    }
 }
