@@ -1,9 +1,14 @@
+import com.ghasemkiani.util.DateFields;
 import com.ghasemkiani.util.PersianCalendarConstants;
+import com.ghasemkiani.util.SimplePersianCalendar;
 import com.ghasemkiani.util.icu.PersianCalendar;
 import com.ibm.icu.text.DateFormat;
 import com.ibm.icu.util.Calendar;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.chrono.ChronoLocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
@@ -14,11 +19,11 @@ public class MyDate01 {
     private com.ibm.icu.util.Calendar pc2 = new PersianCalendar(new Date());
 
     private void setPersianDate() {
-        pc1.set(1400, PersianCalendarConstants.KHORDAD,21);
-        pc2.set(1400,PersianCalendarConstants.TIR,20);
+        pc1.set(1400, PersianCalendarConstants.AZAR,21);
+        pc2.set(1400,PersianCalendarConstants.DEY,20);
     }
 
-    public int findFriday() {   // must be private
+    private int findFriday() {   // must be private
         setPersianDate();
 
         Locale loc = new Locale("FA","IR");
@@ -38,7 +43,7 @@ public class MyDate01 {
         return numberOfFri;
     }
 
-    public int findThursday() { // must be private
+    private int findThursday() { // must be private
         setPersianDate();
 
         int numberOfThu = 0;
@@ -52,7 +57,7 @@ public class MyDate01 {
         return numberOfThu;
     }
 
-    public int findWednesday() { // must be private
+    private int findWednesday() { // must be private
         setPersianDate();
 
         int numberOfWed = 0;
@@ -64,5 +69,16 @@ public class MyDate01 {
                 pc1.add(PersianCalendar.DATE,1);
         }
         return numberOfWed;
+    }
+
+    public int countDays() {
+        setPersianDate();
+
+        int numberOfDays = 0;
+        while (!pc1.after(pc2)) {
+            numberOfDays++;
+            pc1.add(PersianCalendar.DATE, 1); // 1 days later
+        }
+        return numberOfDays;
     }
 }
