@@ -15,6 +15,7 @@ import java.util.Locale;
 
 public class MyDate01 {
 
+    final int holiday = 2;
     private com.ibm.icu.util.Calendar pc1 = new PersianCalendar(new Date());
     private com.ibm.icu.util.Calendar pc2 = new PersianCalendar(new Date());
 
