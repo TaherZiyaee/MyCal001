@@ -10,6 +10,7 @@ import java.time.chrono.HijrahChronology;
 import java.time.chrono.HijrahDate;
 import java.time.chrono.IsoChronology;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 public class MyDate01 {
@@ -18,8 +19,24 @@ public class MyDate01 {
     private com.ibm.icu.util.Calendar pc1 = new PersianCalendar(new Date());
     private com.ibm.icu.util.Calendar pc2 = new PersianCalendar(new Date());
 
+    public Calendar getPc1() {
+        return pc1;
+    }
+
+    public void setPc1(Calendar pc1) {
+        this.pc1 = pc1;
+    }
+
+    public Calendar getPc2() {
+        return pc2;
+    }
+
+    public void setPc2(Calendar pc2) {
+        this.pc2 = pc2;
+    }
+
     private void setPersianDate() {
-        pc1.set(1400, PersianCalendarConstants.KHORDAD,01);
+        pc1.set(1400, PersianCalendarConstants.KHORDAD,1);
         pc2.set(1400,PersianCalendarConstants.KHORDAD,31);
     }
 
@@ -82,6 +99,7 @@ public class MyDate01 {
 
     public LocalDate hijriToGregorian() {
         HijrahDate date = HijrahChronology.INSTANCE.dateNow();
+        date.getChronology().date(1442,11,13);
         System.out.println(date);
 
         LocalDate gDate = IsoChronology.INSTANCE.date(date);
@@ -100,23 +118,34 @@ public class MyDate01 {
 
     }
 
-    public boolean findDayBetween() {
+    public void findDayBetween() {
         setPersianDate();
         Calendar cal = new PersianCalendar();
-        cal.set(1400,PersianCalendarConstants.MEHR,15);
-        boolean condition = false;
-        /*if (cal.after(pc1) && cal.before(pc2))
-            return true;
-        else
-            return false;*/
+        cal.set(1400,PersianCalendarConstants.KHORDAD,11);
+        String condition = "Not OK";
+
         while (!pc1.after(pc2)) {
-            if (pc1.get(Calendar.DATE) == cal.get(Calendar.DATE))
-//            if (pc1.getTime().equals(cal.getTime()))
-//                condition = true;
-                return true;
+            if (pc1.get(Calendar.YEAR) == cal.get(Calendar.YEAR) &&
+            pc1.get(Calendar.MONTH) == cal.get(Calendar.MONTH) &&
+            pc1.get(Calendar.DAY_OF_MONTH) == cal.get(Calendar.DAY_OF_MONTH)) {
+                condition = "OK";
+                System.out.println(condition);
+                return;
+            }
             else
                 pc1.add(PersianCalendar.DATE,1);
         }
-        return false;
+        System.out.println(condition);
+    }
+
+    public void compareDates() {
+        java.util.Calendar cal1 = new GregorianCalendar(2020,9,10);
+        java.util.Calendar cal2 = new GregorianCalendar(2020,9,10);
+
+        int i = cal1.compareTo(cal2);
+        int j = cal2.compareTo(cal1);
+
+        System.out.println(i);
+        System.out.println(j);
     }
 }

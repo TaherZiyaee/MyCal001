@@ -8,6 +8,10 @@ public class MyMain {
 //        System.out.println("Wednesday#: " + myDate01.findWednesday());
 //        System.out.println("All Days: " + myDate01.countDays());
 
-        System.out.println(myDate01.findDayBetween());
+        myDate01.findDayBetween();
+
+        myDate01.compareDates();
+
+        myDate01.hijriToGregorian();
     }
 }
