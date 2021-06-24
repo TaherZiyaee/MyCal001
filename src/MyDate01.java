@@ -148,4 +148,8 @@ public class MyDate01 {
         System.out.println(i);
         System.out.println(j);
     }
+
+    public void printPersianDate() {
+        System.out.println(String.valueOf(pc1.get(Calendar.DATE)));
+    }
 }
