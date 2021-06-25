@@ -48,6 +48,8 @@ public class Holidays {
         cal.set(1400,KHORDAD,16);
         pHolidays.add(cal);
 
+        System.out.println(cal.toString());
+
         SimpleDateFormat sdf = new PersianDateFormat("yyyy-MM/dd");
 
 

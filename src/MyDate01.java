@@ -1,7 +1,9 @@
+import com.ghasemkiani.util.DateFields;
 import com.ghasemkiani.util.PersianCalendarConstants;
 import com.ghasemkiani.util.icu.PersianCalendar;
 import com.ghasemkiani.util.icu.PersianDateFormat;
 import com.ibm.icu.text.DateFormat;
+import com.ibm.icu.text.SimpleDateFormat;
 import com.ibm.icu.util.Calendar;
 
 
@@ -38,6 +40,14 @@ public class MyDate01 {
     private void setPersianDate() {
         pc1.set(1400, PersianCalendarConstants.KHORDAD,1);
         pc2.set(1400,PersianCalendarConstants.KHORDAD,31);
+    }
+
+    public void printPersianDate() {
+//        Date date = pc1.getTime();
+        DateFields date = pc1.getTime();
+        DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+        String strDate = df.format(date);
+        System.out.println("Converted String: " + strDate);
     }
 
     public int findFriday() {   // must be private
@@ -149,7 +159,5 @@ public class MyDate01 {
         System.out.println(j);
     }
 
-    public void printPersianDate() {
-        System.out.println(String.valueOf(pc1.get(Calendar.DATE)));
-    }
+
 }

@@ -11,13 +11,15 @@ public class MyMain {
 
         myDate01.printPersianDate();
 
-        myDate01.findDayBetween();
+//        myDate01.findDayBetween();
 
         myDate01.compareDates();
 
 //        myDate01.hijriToGregorian();
 
-        holidays.printValue();
+//        holidays.printValue();
+
+        holidays.setPersianHolidays();
 
 
     }
