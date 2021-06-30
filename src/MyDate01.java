@@ -14,18 +14,32 @@ import java.time.chrono.Chronology;
 import java.time.chrono.HijrahChronology;
 import java.time.chrono.HijrahDate;
 import java.time.chrono.IsoChronology;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
 public class MyDate01 {
 
+    private int pMonth;
+//    private ArrayList<PersianCalendar> persianArrayList = new ArrayList<>();
+    private ArrayList<String> pDateArrayList = new ArrayList<>();
+    private ArrayList<PersianCalendar> pCalendarsArrayList = new ArrayList<>();
+    private PersianCalendar pCal = new PersianCalendar();
     private com.ibm.icu.util.Calendar pc1 = new PersianCalendar(new Date());
     private com.ibm.icu.util.Calendar pc2 = new PersianCalendar(new Date());
 
     // Constructor
     public MyDate01() {
         whichMonth();
+    }
+
+    public int getpMonth() {
+        return pMonth;
+    }
+
+    public void setpMonth(int pMonth) {
+        this.pMonth = pMonth;
     }
 
     public Calendar getPc1() {
@@ -52,11 +66,11 @@ public class MyDate01 {
     }
 
     // set persian date for each month - done
-    private void setRangOfPMonth(int pMonth) {
+    private void setRangOfPMonth() {
 
         int year = getCurrentYear();
 
-        switch (pMonth) {
+        switch (getpMonth()) {
             // Spring
             case PersianCalendarConstants.FARVARDIN:
                 pc1.set(year-1,PersianCalendarConstants.ESFAND,21);
@@ -114,7 +128,7 @@ public class MyDate01 {
 
     // selected month - done
     private void whichMonth() {
-        setRangOfPMonth(PersianCalendarConstants.ESFAND);
+        setpMonth(PersianCalendarConstants.ESFAND);
     }
 
     public void printPersianDate() {
@@ -182,6 +196,7 @@ public class MyDate01 {
         return numberOfDays;
     }
 
+    // Convert Hijri calendar to Gregorian calendar and plus 1 date to it - done
     private Date hijriToGregorian() {
         IslamicCalendar hijri = new IslamicCalendar();
         hijri.set(1442, IslamicCalendar.DHU_AL_HIJJAH,10);
@@ -198,17 +213,16 @@ public class MyDate01 {
         return gregorian.getTime();
     }
 
+    // Convert Gregorian calendar to Persian calendar- done
     public void gregorianToShamsi() {
         Date gDate = hijriToGregorian();
         PersianCalendar cal = new PersianCalendar();
         cal.setTime(gDate);
 
-        System.out.println("--------------");
+/*        System.out.println("--------------");
         System.out.println(cal.get(PersianCalendar.YEAR));
         System.out.println(cal.get(PersianCalendar.MONTH));
-        System.out.println(cal.get(PersianCalendar.DAY_OF_MONTH));
-
-
+        System.out.println(cal.get(PersianCalendar.DAY_OF_MONTH));*/
     }
 
     public void findDayBetween() {
@@ -240,6 +254,23 @@ public class MyDate01 {
 
         System.out.println(i);
         System.out.println(j);
+    }
+
+    public void definePersianHolidays() {
+        pCalendarsArrayList.clear();
+
+        DateFormat df = new PersianDateFormat("yyyy/MM/dd");
+        int year = getCurrentYear();
+
+        switch (getpMonth()) {
+            case PersianCalendarConstants.FARVARDIN:
+                pDateArrayList.add("1400/01/01");
+                pDateArrayList.add("1400/01/02");
+                break;
+        }
+
+        PersianCalendar calendar = (PersianCalendar) PersianCalendar.getInstance();
+        calendar.setTime(df.format(pDateArrayList.get(0)));
     }
 
 
