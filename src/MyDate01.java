@@ -37,6 +37,7 @@ public class MyDate01 {
         this.pc2 = pc2;
     }
 
+    // OK - set persian dates
     private void setPersianDate() {
         pc1.set(1400, PersianCalendarConstants.KHORDAD,1);
         pc2.set(1400,PersianCalendarConstants.KHORDAD,31);
@@ -50,7 +51,9 @@ public class MyDate01 {
         System.out.println("Converted String: " + strDate);
     }
 
-    public int findFriday() {   // must be private
+    // OK - find number of friday in a date range
+    // must be private
+    public int findFriday() {
         setPersianDate();
 
         Locale loc = new Locale("FA","IR");
@@ -68,7 +71,9 @@ public class MyDate01 {
         return numberOfFri;
     }
 
-    public int findThursday() { // must be private
+    // OK - find number of thursday in a date range
+    // must be private
+    public int findThursday() {
         setPersianDate();
 
         int numberOfThu = 0;
@@ -82,7 +87,9 @@ public class MyDate01 {
         return numberOfThu;
     }
 
-    public int findWednesday() { // must be private
+    // OK - find number of wednesday in a date range
+    // must be private
+    public int findWednesday() {
         setPersianDate();
 
         int numberOfWed = 0;
