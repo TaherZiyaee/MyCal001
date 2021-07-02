@@ -1,5 +1,6 @@
 import com.ghasemkiani.util.DateFields;
 import com.ghasemkiani.util.PersianCalendarConstants;
+import com.ghasemkiani.util.SimplePersianCalendar;
 import com.ghasemkiani.util.icu.PersianCalendar;
 import com.ghasemkiani.util.icu.PersianDateFormat;
 import com.ibm.icu.text.DateFormat;
@@ -9,6 +10,7 @@ import com.ibm.icu.util.IslamicCalendar;
 import org.omg.PortableInterceptor.InvalidSlot;
 
 
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.chrono.Chronology;
 import java.time.chrono.HijrahChronology;
@@ -63,6 +65,13 @@ public class MyDate01 {
         PersianCalendar currentDate = new PersianCalendar(new Date());
         int currentYear = currentDate.get(PersianCalendar.YEAR);
         return currentYear;
+    }
+
+    // get current hijri year - done
+    private int getCurrentHijriYear() {
+        IslamicCalendar currentHDate = new IslamicCalendar(new Date());
+        int currentHYear = currentHDate.get(IslamicCalendar.YEAR);
+        return currentHYear;
     }
 
     // set persian date for each month - done
@@ -128,7 +137,7 @@ public class MyDate01 {
 
     // selected month - done
     private void whichMonth() {
-        setpMonth(PersianCalendarConstants.ESFAND);
+        setpMonth(PersianCalendarConstants.FARVARDIN);
     }
 
     public void printPersianDate() {
@@ -259,18 +268,46 @@ public class MyDate01 {
     public void definePersianHolidays() {
         pCalendarsArrayList.clear();
 
-        DateFormat df = new PersianDateFormat("yyyy/MM/dd");
         int year = getCurrentYear();
 
         switch (getpMonth()) {
             case PersianCalendarConstants.FARVARDIN:
-                pDateArrayList.add("1400/01/01");
-                pDateArrayList.add("1400/01/02");
+                pCalendarsArrayList.add(new PersianCalendar(year-1,PersianCalendarConstants.ESFAND,29)); //  ۲۹ اسفند روز ملی شدن صنعت نفت ایران
+                pCalendarsArrayList.add(new PersianCalendar(year-1,PersianCalendarConstants.ESFAND,30)); //   ۳۰ اسفند آخرین روز سال
+                pCalendarsArrayList.add(new PersianCalendar(year,PersianCalendarConstants.FARVARDIN,1)); //  ۱ فروردین جشن نوروز/جشن سال نو
+                pCalendarsArrayList.add(new PersianCalendar(year,PersianCalendarConstants.FARVARDIN,2)); //  ۲ فروردین عیدنوروز
+                pCalendarsArrayList.add(new PersianCalendar(year,PersianCalendarConstants.FARVARDIN,3)); //  ۳ فروردین عیدنوروز
+                pCalendarsArrayList.add(new PersianCalendar(year,PersianCalendarConstants.FARVARDIN,4)); //  ۴ فروردین عیدنوروز
+                pCalendarsArrayList.add(new PersianCalendar(year,PersianCalendarConstants.FARVARDIN,12)); //   ۱۲ فروردین روز جمهوری اسلامی
+                pCalendarsArrayList.add(new PersianCalendar(year,PersianCalendarConstants.FARVARDIN,13)); //  ۱۳ فروردین جشن سیزده به در
+                break;
+            case PersianCalendarConstants.KHORDAD:
+                pCalendarsArrayList.add(new PersianCalendar(year,PersianCalendarConstants.KHORDAD,14)); //  ۱۴ خرداد رحلت حضرت امام خمینی
+                pCalendarsArrayList.add(new PersianCalendar(year,PersianCalendarConstants.KHORDAD,15)); //  ۱۵ خرداد قیام 15 خرداد
+                break;
+            case PersianCalendarConstants.ESFAND:
+                pCalendarsArrayList.add(new PersianCalendar(year,PersianCalendarConstants.BAHMAN,22)); //۲۲ بهمن پیروزی انقلاب اسلامی
                 break;
         }
 
-        PersianCalendar calendar = (PersianCalendar) PersianCalendar.getInstance();
-        calendar.setTime(df.format(pDateArrayList.get(0)));
+        /*System.out.println(pCalendarsArrayList.get(0).get(Calendar.YEAR));
+        System.out.println(pCalendarsArrayList.get(0).get(Calendar.MONTH));
+        System.out.println(pCalendarsArrayList.get(0).get(Calendar.DAY_OF_MONTH));
+
+        System.out.println(pCalendarsArrayList.get(0).get(Calendar.DAY_OF_WEEK));*/
+    }
+
+    public void defineHijriHolidays() {
+        int year = getCurrentHijriYear();
+        ArrayList<IslamicCalendar> hijriArrayList = new ArrayList<>();
+        IslamicCalendar hijri = new IslamicCalendar();
+        hijriArrayList.add(new IslamicCalendar(year,));
+    }
+
+    public void simplePC() {
+        SimplePersianCalendar spc = new SimplePersianCalendar();
+        DateFields t = spc.getDateFields();
+        System.out.printf("Current date in persian calensar is: %d/%d/%d\n",t.getYear(),t.getMonth()+1,t.getDay());
     }
 
 
