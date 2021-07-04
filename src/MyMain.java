@@ -1,6 +1,7 @@
+import java.text.ParseException;
 
 public class MyMain {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
         MyDate01 myDate01 = new MyDate01();
         Holidays holidays = new Holidays();
 
@@ -23,7 +24,12 @@ public class MyMain {
 
 //        holidays.setPersianHolidays();
 
-        myDate01.gregorianToShamsi();
+//        myDate01.gregorianToShamsi();
 
+//        myDate01.definePersianHolidays();
+
+//        myDate01.simplePC();
+
+        System.out.println(myDate01.getCurrentHijriYear());
     }
 }
