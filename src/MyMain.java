@@ -4,6 +4,7 @@ public class MyMain {
     public static void main(String[] args) throws ParseException {
         MyDate01 myDate01 = new MyDate01();
         Holidays holidays = new Holidays();
+        ShamsiToHijri shamsiToHijri = new ShamsiToHijri();
 
 //        System.out.println("Fridays#: " + myDate01.findFriday());
 //        System.out.println("Thursday#: " + myDate01.findThursday());
@@ -30,6 +31,11 @@ public class MyMain {
 
 //        myDate01.simplePC();
 
-        System.out.println(myDate01.getCurrentHijriYear());
+//        System.out.println(myDate01.getCurrentHijriYear());
+
+//        shamsiToHijri.shamsiToMiladi();
+        shamsiToHijri.miladiToHijri();
+
+//        shamsiToHijri.printHijriDate();
     }
 }

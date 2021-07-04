@@ -206,9 +206,9 @@ public class MyDate01 {
     }
 
     // Convert Hijri calendar to Gregorian calendar and plus 1 date to it - done
-    private Date hijriToGregorian() {
+    public Date hijriToGregorian() {
         IslamicCalendar hijri = new IslamicCalendar();
-        hijri.set(1442, IslamicCalendar.DHU_AL_HIJJAH,10);
+        hijri.set(1444, IslamicCalendar.DHU_AL_HIJJAH,23);
         System.out.println(String.valueOf(hijri.getTime()));
         GregorianCalendar gregorian = new GregorianCalendar();
         gregorian.setTime(hijri.getTime());
@@ -228,10 +228,10 @@ public class MyDate01 {
         PersianCalendar cal = new PersianCalendar();
         cal.setTime(gDate);
 
-/*        System.out.println("--------------");
+        System.out.println("--------------");
         System.out.println(cal.get(PersianCalendar.YEAR));
         System.out.println(cal.get(PersianCalendar.MONTH));
-        System.out.println(cal.get(PersianCalendar.DAY_OF_MONTH));*/
+        System.out.println(cal.get(PersianCalendar.DAY_OF_MONTH));
     }
 
     public void findDayBetween() {
@@ -301,7 +301,7 @@ public class MyDate01 {
         int year = getCurrentHijriYear();
         ArrayList<IslamicCalendar> hijriArrayList = new ArrayList<>();
         IslamicCalendar hijri = new IslamicCalendar();
-        hijriArrayList.add(new IslamicCalendar(year,));
+//        hijriArrayList.add(new IslamicCalendar(year,));
     }
 
     public void simplePC() {
