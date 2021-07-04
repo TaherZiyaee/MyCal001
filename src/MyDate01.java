@@ -7,6 +7,7 @@ import com.ibm.icu.text.DateFormat;
 import com.ibm.icu.text.SimpleDateFormat;
 import com.ibm.icu.util.Calendar;
 import com.ibm.icu.util.IslamicCalendar;
+import com.ibm.icu.util.ULocale;
 import org.omg.PortableInterceptor.InvalidSlot;
 
 
@@ -16,10 +17,7 @@ import java.time.chrono.Chronology;
 import java.time.chrono.HijrahChronology;
 import java.time.chrono.HijrahDate;
 import java.time.chrono.IsoChronology;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Locale;
+import java.util.*;
 
 public class MyDate01 {
 
@@ -34,6 +32,7 @@ public class MyDate01 {
     // Constructor
     public MyDate01() {
         whichMonth();
+        setRangOfPMonth();
     }
 
     public int getpMonth() {
@@ -68,7 +67,7 @@ public class MyDate01 {
     }
 
     // get current hijri year - done
-    private int getCurrentHijriYear() {
+    public int getCurrentHijriYear() {
         IslamicCalendar currentHDate = new IslamicCalendar(new Date());
         int currentHYear = currentHDate.get(IslamicCalendar.YEAR);
         return currentHYear;
@@ -137,7 +136,7 @@ public class MyDate01 {
 
     // selected month - done
     private void whichMonth() {
-        setpMonth(PersianCalendarConstants.FARVARDIN);
+        setpMonth(PersianCalendarConstants.TIR);
     }
 
     public void printPersianDate() {
@@ -310,5 +309,19 @@ public class MyDate01 {
         System.out.printf("Current date in persian calensar is: %d/%d/%d\n",t.getYear(),t.getMonth()+1,t.getDay());
     }
 
+    public void calculation() {
+//        String monthName = String.valueOf(pc2.get(PersianCalendar.MONTH));
+        DateFormat df = pc2.getDateTimeFormat(DateFormat.FULL,DateFormat.YEAR_FIELD, new Locale("FA","IR"));
+        String monthName = df.format(pc2.get(PersianCalendar.MONTH));
+        int days = countDays();
+        System.out.printf("Number of %s days: %d\n",monthName,days);
+
+        /*GregorianCalendar gc = new GregorianCalendar();
+        Formatter fm = new Formatter();
+
+        gc.set(2021,6,11);
+        fm.format("%tB %tb %tm",gc,gc,gc);
+        System.out.println(fm);*/
+    }
 
 }

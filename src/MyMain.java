@@ -34,8 +34,12 @@ public class MyMain {
 //        System.out.println(myDate01.getCurrentHijriYear());
 
 //        shamsiToHijri.shamsiToMiladi();
-        shamsiToHijri.miladiToHijri();
+//        shamsiToHijri.miladiToHijri();
 
 //        shamsiToHijri.printHijriDate();
+
+//        shamsiToHijri.defineIslamicHolidays();
+
+        myDate01.calculation();
     }
 }
