@@ -11,9 +11,10 @@ public class MyMain {
 //        System.out.println("Wednesday#: " + myDate01.findWednesday());
 //        System.out.println("All Days: " + myDate01.countDays());
 
-//        myDate01.printPersianDate();
+        myDate01.printPersianDate();
 
 //        System.out.println(myDate01.findWednesday());
+//        System.out.println(myDate01.findFriday());
 
 //        myDate01.findDayBetween();
 

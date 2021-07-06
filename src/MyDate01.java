@@ -59,6 +59,11 @@ public class MyDate01 {
         this.pc2 = pc2;
     }
 
+    // selected month - done
+    private void whichMonth() {
+        setpMonth(PersianCalendarConstants.FARVARDIN);
+    }
+
     // get current persian year - done
     private int getCurrentYear() {
         PersianCalendar currentDate = new PersianCalendar(new Date());
@@ -134,17 +139,14 @@ public class MyDate01 {
         }
     }
 
-    // selected month - done
-    private void whichMonth() {
-        setpMonth(PersianCalendarConstants.TIR);
-    }
-
     public void printPersianDate() {
-        Date date = pc1.getTime();
-//        DateFields date = pc1.getTime();
-        DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
-        String strDate = df.format(date);
-        System.out.println("Converted String: " + strDate);
+
+        Locale loc = new Locale("EN","IR"); // show english font
+//        Locale loc = new Locale("FA","IR"); // show farsi font
+        String pattern = "MMMM";
+        DateFormat df = new PersianDateFormat(pattern,loc);
+        String date = df.format(pc2.getTime());
+        System.out.println(date);
     }
 
     // Specify the number of Fridays in a month - done
@@ -162,7 +164,9 @@ public class MyDate01 {
             } else
                 pc1.add(PersianCalendar.DATE,1);
         }
+        setRangOfPMonth();
         return numberOfFri;
+
     }
 
     // Specify the number of Thursday in a month - done
@@ -176,6 +180,7 @@ public class MyDate01 {
             } else
                 pc1.add(PersianCalendar.DATE,1);
         }
+        setRangOfPMonth();
         return numberOfThu;
     }
 
@@ -190,6 +195,7 @@ public class MyDate01 {
             } else
                 pc1.add(PersianCalendar.DATE,1);
         }
+        setRangOfPMonth();
         return numberOfWed;
     }
 
@@ -201,6 +207,7 @@ public class MyDate01 {
             numberOfDays++;
             pc1.add(PersianCalendar.DATE, 1); // 1 days later
         }
+        setRangOfPMonth();
         return numberOfDays;
     }
 
@@ -310,18 +317,20 @@ public class MyDate01 {
     }
 
     public void calculation() {
-//        String monthName = String.valueOf(pc2.get(PersianCalendar.MONTH));
-        DateFormat df = pc2.getDateTimeFormat(DateFormat.FULL,DateFormat.YEAR_FIELD, new Locale("FA","IR"));
-        String monthName = df.format(pc2.get(PersianCalendar.MONTH));
+
         int days = countDays();
-        System.out.printf("Number of %s days: %d\n",monthName,days);
+        int fridays = findFriday();
+        int thursdays = findThursday();
+        int wednesdays = findWednesday();
 
-        /*GregorianCalendar gc = new GregorianCalendar();
-        Formatter fm = new Formatter();
+        System.out.printf("All Days: %d\n" +
+                "Fridays: %d\n" +
+                "Thursdays: %d\n" +
+                "Wednesdays: %d\n",days,fridays,thursdays,wednesdays);
 
-        gc.set(2021,6,11);
-        fm.format("%tB %tb %tm",gc,gc,gc);
-        System.out.println(fm);*/
+        int edariHours = ((days - (fridays + thursdays + wednesdays)) * 9) + (wednesdays * 8);
+
+        System.out.printf("Total Edari Hours: %d\n",edariHours);
     }
 
 }
