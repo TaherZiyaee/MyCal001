@@ -4,19 +4,10 @@ import com.ghasemkiani.util.SimplePersianCalendar;
 import com.ghasemkiani.util.icu.PersianCalendar;
 import com.ghasemkiani.util.icu.PersianDateFormat;
 import com.ibm.icu.text.DateFormat;
-import com.ibm.icu.text.SimpleDateFormat;
 import com.ibm.icu.util.Calendar;
 import com.ibm.icu.util.IslamicCalendar;
-import com.ibm.icu.util.ULocale;
-import org.omg.PortableInterceptor.InvalidSlot;
 
 
-import java.text.ParseException;
-import java.time.LocalDate;
-import java.time.chrono.Chronology;
-import java.time.chrono.HijrahChronology;
-import java.time.chrono.HijrahDate;
-import java.time.chrono.IsoChronology;
 import java.util.*;
 
 public class MyDate01 {
@@ -24,7 +15,7 @@ public class MyDate01 {
     private int pMonth;
 //    private ArrayList<PersianCalendar> persianArrayList = new ArrayList<>();
     private ArrayList<String> pDateArrayList = new ArrayList<>();
-    private ArrayList<PersianCalendar> pCalendarsArrayList = new ArrayList<>();
+    private ArrayList<PersianCalendar> persianHolidays = new ArrayList<>();
     private PersianCalendar pCal = new PersianCalendar();
     private com.ibm.icu.util.Calendar pc1 = new PersianCalendar(new Date());
     private com.ibm.icu.util.Calendar pc2 = new PersianCalendar(new Date());
@@ -33,6 +24,7 @@ public class MyDate01 {
     public MyDate01() {
         whichMonth();
         setRangOfPMonth();
+        definePersianHolidays();
     }
 
     public int getpMonth() {
@@ -61,7 +53,7 @@ public class MyDate01 {
 
     // selected month - done
     private void whichMonth() {
-        setpMonth(PersianCalendarConstants.FARVARDIN);
+        setpMonth(PersianCalendarConstants.KHORDAD);
     }
 
     // get current persian year - done
@@ -240,8 +232,8 @@ public class MyDate01 {
         System.out.println(cal.get(PersianCalendar.DAY_OF_MONTH));
     }
 
-    public void findDayBetween() {
-//        setPersianDate();
+    // OK
+    /*public void findDayBetween() {
         Calendar cal = new PersianCalendar();
         cal.set(1400,PersianCalendarConstants.KHORDAD,11);
         String condition = "Not OK";
@@ -258,6 +250,53 @@ public class MyDate01 {
                 pc1.add(PersianCalendar.DATE,1);
         }
         System.out.println(condition);
+    }*/
+
+    /*public void findDayBetween() {
+
+        String condition = "Not OK";
+
+        while (!pc1.after(pc2)) {
+            if (pc1.get(Calendar.MONTH) == persianHolidays.get(0).get(Calendar.MONTH) &&
+                    pc1.get(Calendar.DAY_OF_MONTH) == persianHolidays.get(0).get(Calendar.DAY_OF_MONTH)) {
+                condition = "OK";
+                System.out.println(condition);
+                return;
+            }
+            else
+                pc1.add(PersianCalendar.DATE,1);
+        }
+        System.out.println(condition);
+    }*/
+
+
+
+    public int persianHolidaysHours() {
+
+        int wedHoliday = 0, first4DaysHoliday = 0;
+
+        if (getpMonth() == PersianCalendarConstants.FARVARDIN ||
+                getpMonth() == PersianCalendarConstants.KHORDAD ||
+                getpMonth() == PersianCalendarConstants.ESFAND) {
+            while (!pc1.after(pc2)) {
+                 for (int i=0; i<persianHolidays.size(); i++) {
+//                    pc1.get(Calendar.MONTH) == persianHolidays.get(i).get(Calendar.MONTH) &&
+                    if (pc1.get(Calendar.DAY_OF_MONTH) == persianHolidays.get(i).get(Calendar.DAY_OF_MONTH)) {
+                        int dayOfWeek = pc1.get(Calendar.DAY_OF_WEEK);
+                        if (dayOfWeek != PersianCalendar.FRIDAY && dayOfWeek != PersianCalendar.THURSDAY)
+                            if (dayOfWeek == PersianCalendar.WEDNESDAY) {
+                                wedHoliday++;
+                            }
+                            else {
+                                first4DaysHoliday++;
+                            }
+                    } else
+                        pc1.add(PersianCalendar.DATE, 1);
+                }
+            }
+        }
+        int result = (wedHoliday * 8) + (first4DaysHoliday * 9);
+        return result;
     }
 
     public void compareDates() {
@@ -272,27 +311,27 @@ public class MyDate01 {
     }
 
     public void definePersianHolidays() {
-        pCalendarsArrayList.clear();
+        persianHolidays.clear();
 
         int year = getCurrentYear();
 
         switch (getpMonth()) {
             case PersianCalendarConstants.FARVARDIN:
-                pCalendarsArrayList.add(new PersianCalendar(year-1,PersianCalendarConstants.ESFAND,29)); //  ۲۹ اسفند روز ملی شدن صنعت نفت ایران
-                pCalendarsArrayList.add(new PersianCalendar(year-1,PersianCalendarConstants.ESFAND,30)); //   ۳۰ اسفند آخرین روز سال
-                pCalendarsArrayList.add(new PersianCalendar(year,PersianCalendarConstants.FARVARDIN,1)); //  ۱ فروردین جشن نوروز/جشن سال نو
-                pCalendarsArrayList.add(new PersianCalendar(year,PersianCalendarConstants.FARVARDIN,2)); //  ۲ فروردین عیدنوروز
-                pCalendarsArrayList.add(new PersianCalendar(year,PersianCalendarConstants.FARVARDIN,3)); //  ۳ فروردین عیدنوروز
-                pCalendarsArrayList.add(new PersianCalendar(year,PersianCalendarConstants.FARVARDIN,4)); //  ۴ فروردین عیدنوروز
-                pCalendarsArrayList.add(new PersianCalendar(year,PersianCalendarConstants.FARVARDIN,12)); //   ۱۲ فروردین روز جمهوری اسلامی
-                pCalendarsArrayList.add(new PersianCalendar(year,PersianCalendarConstants.FARVARDIN,13)); //  ۱۳ فروردین جشن سیزده به در
+                persianHolidays.add(new PersianCalendar(year-1,PersianCalendarConstants.ESFAND,29)); //  ۲۹ اسفند روز ملی شدن صنعت نفت ایران
+                persianHolidays.add(new PersianCalendar(year-1,PersianCalendarConstants.ESFAND,30)); //   ۳۰ اسفند آخرین روز سال
+                persianHolidays.add(new PersianCalendar(year,PersianCalendarConstants.FARVARDIN,1)); //  ۱ فروردین جشن نوروز/جشن سال نو
+                persianHolidays.add(new PersianCalendar(year,PersianCalendarConstants.FARVARDIN,2)); //  ۲ فروردین عیدنوروز
+                persianHolidays.add(new PersianCalendar(year,PersianCalendarConstants.FARVARDIN,3)); //  ۳ فروردین عیدنوروز
+                persianHolidays.add(new PersianCalendar(year,PersianCalendarConstants.FARVARDIN,4)); //  ۴ فروردین عیدنوروز
+                persianHolidays.add(new PersianCalendar(year,PersianCalendarConstants.FARVARDIN,12)); //   ۱۲ فروردین روز جمهوری اسلامی
+                persianHolidays.add(new PersianCalendar(year,PersianCalendarConstants.FARVARDIN,13)); //  ۱۳ فروردین جشن سیزده به در
                 break;
             case PersianCalendarConstants.KHORDAD:
-                pCalendarsArrayList.add(new PersianCalendar(year,PersianCalendarConstants.KHORDAD,14)); //  ۱۴ خرداد رحلت حضرت امام خمینی
-                pCalendarsArrayList.add(new PersianCalendar(year,PersianCalendarConstants.KHORDAD,15)); //  ۱۵ خرداد قیام 15 خرداد
+                persianHolidays.add(new PersianCalendar(year,PersianCalendarConstants.KHORDAD,14)); //  ۱۴ خرداد رحلت حضرت امام خمینی
+                persianHolidays.add(new PersianCalendar(year,PersianCalendarConstants.KHORDAD,15)); //  ۱۵ خرداد قیام 15 خرداد
                 break;
             case PersianCalendarConstants.ESFAND:
-                pCalendarsArrayList.add(new PersianCalendar(year,PersianCalendarConstants.BAHMAN,22)); //۲۲ بهمن پیروزی انقلاب اسلامی
+                persianHolidays.add(new PersianCalendar(year,PersianCalendarConstants.BAHMAN,22)); //۲۲ بهمن پیروزی انقلاب اسلامی
                 break;
         }
 
