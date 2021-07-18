@@ -53,7 +53,7 @@ public class MyDate01 {
 
     // selected month - done
     private void whichMonth() {
-        setpMonth(PersianCalendarConstants.KHORDAD);
+        setpMonth(PersianCalendarConstants.FARVARDIN);
     }
 
     // get current persian year - done
@@ -137,8 +137,15 @@ public class MyDate01 {
 //        Locale loc = new Locale("FA","IR"); // show farsi font
         String pattern = "MMMM";
         DateFormat df = new PersianDateFormat(pattern,loc);
+
         String date = df.format(pc2.getTime());
         System.out.println(date);
+
+        // namayeshe vizhegihaye yek roozr khas
+        System.out.println(pc1.get(Calendar.YEAR));
+        System.out.println(pc1.get(Calendar.MONTH));
+        System.out.println(pc1.get(Calendar.DATE));
+        System.out.println(pc1.get(Calendar.DAY_OF_WEEK));
     }
 
     // Specify the number of Fridays in a month - done
@@ -270,7 +277,7 @@ public class MyDate01 {
     }*/
 
 
-
+    // Calculate shamsi holidays - done
     public int persianHolidaysHours() {
 
         int wedHoliday = 0, first4DaysHoliday = 0;
@@ -280,9 +287,8 @@ public class MyDate01 {
                 getpMonth() == PersianCalendarConstants.ESFAND) {
             while (!pc1.after(pc2)) {
                  for (int i=0; i<persianHolidays.size(); i++) {
-//                    pc1.get(Calendar.MONTH) == persianHolidays.get(i).get(Calendar.MONTH) &&
                     if (pc1.get(Calendar.DAY_OF_MONTH) == persianHolidays.get(i).get(Calendar.DAY_OF_MONTH)) {
-                        int dayOfWeek = pc1.get(Calendar.DAY_OF_WEEK);
+                        int dayOfWeek = pc1.get(Calendar.DAY_OF_WEEK_IN_MONTH);
                         if (dayOfWeek != PersianCalendar.FRIDAY && dayOfWeek != PersianCalendar.THURSDAY)
                             if (dayOfWeek == PersianCalendar.WEDNESDAY) {
                                 wedHoliday++;
@@ -290,9 +296,9 @@ public class MyDate01 {
                             else {
                                 first4DaysHoliday++;
                             }
-                    } else
-                        pc1.add(PersianCalendar.DATE, 1);
+                    }
                 }
+                pc1.add(PersianCalendar.DATE, 1);
             }
         }
         int result = (wedHoliday * 8) + (first4DaysHoliday * 9);

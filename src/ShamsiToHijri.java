@@ -25,7 +25,7 @@ public class ShamsiToHijri {
 
     public void miladiToHijri() {
         IslamicCalendar islamicCalendar = new IslamicCalendar();
-        islamicCalendar.set(Calendar.MONTH,IslamicCalendar.RABI_2);
+//        islamicCalendar.set(Calendar.MONTH,IslamicCalendar.RABI_2);
 //        islamicCalendar.setTime(shamsiToMiladi());
 
 //        System.out.println("Islamic: " + String.valueOf(islamicCalendar.getTime()));
