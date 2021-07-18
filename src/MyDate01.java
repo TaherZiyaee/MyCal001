@@ -53,7 +53,7 @@ public class MyDate01 {
 
     // selected month - done
     private void whichMonth() {
-        setpMonth(PersianCalendarConstants.FARVARDIN);
+        setpMonth(PersianCalendarConstants.ORDIBEHESHT);
     }
 
     // get current persian year - done

@@ -3,6 +3,8 @@
     <CLASSES>
       <root url="jar://$USER_HOME$/Downloads/Compressed/PersianCalendar_2_1/PersianCalendar_2_1/lib/icu4j_3_2_calendar.jar!/" />
       <root url="jar://$USER_HOME$/Downloads/Compressed/PersianCalendar_2_1/PersianCalendar_2_1/lib/persiancalendar.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/PersianCalendar_2_1/lib/icu4j_3_2_calendar.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/PersianCalendar_2_1/lib/persiancalendar.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
