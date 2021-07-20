@@ -53,7 +53,7 @@ public class MyDate01 {
 
     // selected month - done
     private void whichMonth() {
-        setpMonth(PersianCalendarConstants.ORDIBEHESHT);
+        setpMonth(PersianCalendarConstants.TIR);
     }
 
     // get current persian year - done
@@ -134,18 +134,19 @@ public class MyDate01 {
     public void printPersianDate() {
 
         Locale loc = new Locale("EN","IR"); // show english font
-//        Locale loc = new Locale("FA","IR"); // show farsi font
+        Locale loc1 = new Locale("FA","IR"); // show farsi font
         String pattern = "MMMM";
         DateFormat df = new PersianDateFormat(pattern,loc);
 
         String date = df.format(pc2.getTime());
-        System.out.println(date);
+//        System.out.println(date);
 
+        DateFormat df1 = new PersianDateFormat("y/M/d",loc1);
+        DateFormat df2 = new PersianDateFormat("EEEE",loc1);
         // namayeshe vizhegihaye yek roozr khas
-        System.out.println(pc1.get(Calendar.YEAR));
-        System.out.println(pc1.get(Calendar.MONTH));
-        System.out.println(pc1.get(Calendar.DATE));
-        System.out.println(pc1.get(Calendar.DAY_OF_WEEK));
+        System.out.printf("Persian Date: %s\n",df1.format(pc1.getTime()));
+        System.out.printf("Persian Date2: %d/%d/%d\n",pc1.get(Calendar.YEAR),pc1.get(Calendar.MONTH),pc1.get(Calendar.DATE));
+        System.out.printf("%s = %d\n",df2.format(pc1.getTime()),pc1.get(Calendar.DAY_OF_WEEK));
     }
 
     // Specify the number of Fridays in a month - done

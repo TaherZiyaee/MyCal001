@@ -50,8 +50,9 @@ public class ShamsiToHijri {
         gc1.setTime(pc1.getTime());
         gc2.setTime(pc2.getTime());
 
-//        System.out.println(String.valueOf(df.format(gc1.getTime())));
-//        System.out.println(String.valueOf(df.format(gc2.getTime())));
+        System.out.println("Shamsi To Miladi:");
+        System.out.println(String.valueOf(df.format(gc1.getTime())));
+        System.out.println(String.valueOf(df.format(gc2.getTime())));
 
     }
 
@@ -73,6 +74,7 @@ public class ShamsiToHijri {
         ic1.setTime(gc1.getTime());
         ic2.setTime(gc2.getTime());
 
+        System.out.println("Miladi To Hijri:");
         System.out.printf("Start Date: %d/%d/%d\n",ic1.get(IslamicCalendar.YEAR),ic1.get(IslamicCalendar.MONTH),ic1.get(IslamicCalendar.DATE));
         System.out.printf("End Date: %d/%d/%d\n",ic2.get(IslamicCalendar.YEAR),ic2.get(IslamicCalendar.MONTH),ic2.get(IslamicCalendar.DATE));
     }
